@@ -36,10 +36,10 @@ const App = () => {
     if (showCount === 2) {
       let opened = gridItems.filter(item => item.show === true);
       if (opened.length === 2) {
-
-        // v1 - if both are equal, make every shown permanent
+      
+        let tmpGrid = [...gridItems];
         if (opened[0].item === opened[1].item) {
-          let tmpGrid = [...gridItems];
+          // v1 - if both are equal, make every shown permanent
           for (let i in tmpGrid) {
             if (tmpGrid[i].show) {
               tmpGrid[i].permanentShow = true;
@@ -48,15 +48,17 @@ const App = () => {
           }
           SetGridItems(tmpGrid);
           SetShowCount(0);
+          setMoveCount(moveCount + 1);
         } else {
           //v2 - if they are NOT equal, close all "show"
           setTimeout(() => {
-            let tmpGrid = [...gridItems];
+            
             for (let i in tmpGrid) {
               tmpGrid[i].show = false
             }
             SetGridItems(tmpGrid);
             SetShowCount(0);
+          setMoveCount(moveCount + 1);
           }, 1000)
         }
 
